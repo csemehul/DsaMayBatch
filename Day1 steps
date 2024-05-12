@@ -1,0 +1,9 @@
+It initializes a result vector res with dimensions (n-2) x (n-2) to store the results.
+
+It iterates over the grid, excluding the first and last rows and columns (i from 1 to n - 2, and j from 1 to n - 2).
+
+For each cell in the grid, it initializes temp to 0 and iterates over the 3x3 submatrix centered at the current cell (i, j), finding the maximum value within this submatrix.
+
+After finding the maximum value within the 3x3 submatrix, it stores this value in the corresponding position of the result vector res.
+
+Finally, it returns the result vector containing the maximum values from each local 3x3 submatrix.
