@@ -1,0 +1,8 @@
+int M = A.size(), int N = A[0].size(): These lines calculate the number of rows and columns in the matrix.
+int res = (1 << (N - 1)) * M;: This line initializes the result res with the initial score of the matrix. (1 << (N - 1)) calculates 2^(N-1), which is the value of the first column for each row. This value is then multiplied by the number of rows M.
+The outer loop for (int j = 1; j < N; j++) iterates over each column (starting from the second column).
+Inside the outer loop, the inner loop for (int i = 0; i < M; i++) iterates over each row, and cur += A[i][j] == A[i][0]; counts the number of elements in the current column that are equal to the first element of the same row.
+After counting, max(cur, M - cur) calculates the maximum count of 0s or 1s in the current column.
+(1 << (N - j - 1)) calculates the value of the current column.
+Finally, this value is multiplied by the maximum count of 0s or 1s in the column and added to the result res.
+The function returns the final score res.
