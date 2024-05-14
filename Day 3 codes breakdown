@@ -1,0 +1,8 @@
+defines a class Solution with a method getMaximumGold,
+which calculates the maximum amount of gold that can be collected by a miner moving on a 2D grid. 
+The algorithm used is a depth-first search (DFS) implemented recursively.
+
+roww and coll are vectors representing the changes in the x and y coordinates, respectively, to move in four directions: up, down, left, and right.
+maxGold is a class member variable to store the maximum gold collected.
+dfs is a recursive function that performs DFS to explore paths and calculate the maximum gold that can be collected starting from a given position (x, y) on the grid.
+getMaximumGold is the main function that iterates over all cells in the grid, calls dfs for each cell, and updates maxGold with the maximum value returned by dfs.
