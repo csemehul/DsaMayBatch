@@ -1,0 +1,6 @@
+The bfs function performs a breadth-first search (BFS) from each non-zero cell in the grid to calculate the minimum distance to reach that cell from any other cell.
+The maximumSafenessFactor function first checks if the top-left and bottom-right cells are non-zero. If either of them is non-zero, it means there is no safe path, so it returns 0.
+It then initializes a priority queue (pq) to store the cells to be explored, with the priority being the minimum of the current safeness factor and the calculated distance from the start cell to the current cell.
+It iterates through the priority queue until it reaches the bottom-right cell or exhausts all possibilities.
+At each iteration, it explores the neighboring cells and updates the priority queue with the minimum safeness factor.
+If it reaches the bottom-right cell, it returns the safeness factor.
