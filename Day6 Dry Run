@@ -1,0 +1,63 @@
+Consider the following binary tree:
+    1
+   / \
+  2   3
+ /   / \
+2   2   4
+Suppose the target value is 2.
+Initial Call
+removeLeafNodes(root, 2) where root is the node with value 1.
+
+First Call (root is 1):
+
+Process left child: removeLeafNodes(root->left, 2) where root->left is 2.
+Second Call (root is 2 - left child of 1):
+
+Process left child: removeLeafNodes(root->left, 2) where root->left is 2.
+Third Call (root is 2 - left child of 2):
+
+Leaf node with value 2, matches target.
+Return nullptr (remove this leaf).
+Return to Second Call (root is 2 - left child of 1):
+
+Left child is now nullptr.
+Right child is nullptr.
+Leaf node with value 2, matches target.
+Return nullptr (remove this node).
+Return to First Call (root is 1):
+
+Left child is now nullptr.
+Process right child: removeLeafNodes(root->right, 2) where root->right is 3.
+Fourth Call (root is 3 - right child of 1):
+
+Process left child: removeLeafNodes(root->left, 2) where root->left is 2.
+Fifth Call (root is 2 - left child of 3):
+
+Leaf node with value 2, matches target.
+Return nullptr (remove this leaf).
+Return to Fourth Call (root is 3 - right child of 1):
+
+Left child is now nullptr.
+Process right child: removeLeafNodes(root->right, 2) where root->right is 4.
+Sixth Call (root is 4 - right child of 3):
+
+Leaf node with value 4, does not match target.
+Return root (keep this node).
+Return to Fourth Call (root is 3 - right child of 1):
+
+Left child is nullptr.
+Right child is 4.
+Return root (keep this node).
+Return to First Call (root is 1):
+
+Left child is nullptr.
+Right child is 3.
+Return root (keep this node).
+Final Tree After Removal
+The final tree after removing the leaf nodes with the value 2 is:
+    1
+     \
+      3
+       \
+        4
+The tree has been modified correctly, removing all the leaf nodes with the value 2.
