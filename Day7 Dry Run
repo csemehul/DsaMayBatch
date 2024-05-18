@@ -1,0 +1,44 @@
+Consider the following binary tree: 
+       3
+      / \
+     0   0
+Initialization:
+
+res is initialized to 0.
+distributeCoins is called with the root node (value 3).
+DFS on Root (value 3):
+
+Call dfs(root). root is not null.
+Call dfs(root->left) where root->left is the node with value 0.
+DFS on Left Child (value 0):
+
+Call dfs(root->left) where root->left is null. It returns 0.
+Call dfs(root->right) where root->right is null. It returns 0.
+left = 0, right = 0.
+Calculate the moves: res += abs(left) + abs(right), so res += 0 + 0 which keeps res as 0.
+Return root->val + left + right - 1 => 0 + 0 + 0 - 1 = -1.
+DFS on Right Child (value 0):
+
+Call dfs(root->left) where root->left is null. It returns 0.
+Call dfs(root->right) where root->right is null. It returns 0.
+left = 0, right = 0.
+Calculate the moves: res += abs(left) + abs(right), so res += 0 + 0 which keeps res as 0.
+Return root->val + left + right - 1 => 0 + 0 + 0 - 1 = -1.
+Back to Root (value 3):
+
+The left subtree returned -1.
+The right subtree returned -1.
+left = -1, right = -1.
+Calculate the moves: res += abs(left) + abs(right), so res += 1 + 1 which updates res to 2.
+Return root->val + left + right - 1 => 3 + (-1) + (-1) - 1 = 0.
+Summary:
+The total number of moves required (res) is 2.
+Explanation of Moves:
+Move one coin from the root (3) to the left child (0).
+Move one coin from the root (2) to the right child (0).
+After these moves, each node has exactly one coin, fulfilling the requirement. The code correctly computes the minimum number of moves required to distribute the coins in the binary tree.
+
+Here is the final state of the tree after distributing coins:
+       1
+      / \
+     1   1
