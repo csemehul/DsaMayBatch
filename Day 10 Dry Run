@@ -1,0 +1,64 @@
+dry run of the given C++ code with a simple example. We'll use `nums = [1, 2]`.
+
+Initial State
+
+(C++)
+vector<vector<int>> subs = {{}};
+```
+
+- `subs` starts as `[[]]`.
+
+First Iteration (Processing `1`)
+
+1. **Outer Loop**:
+   (C++)
+   for (int num : nums) {  // num = 1
+   ```
+2. **Inner Loop Setup**:
+   (C++)
+   int n = subs.size();  // n = 1
+   for (int i = 0; i < n; i++) {
+   ```
+3. **Inner Loop Execution**:
+   - **i = 0**:
+     - `subs.push_back(subs[i]);  // subs.push_back(subs[0]) => subs.push_back([])`
+     - `subs` becomes `[[], []]`.
+     - `subs.back().push_back(num);  // subs.back().push_back(1)`
+     - `subs` becomes `[[], [1]]`.
+
+Second Iteration (Processing `2`)
+
+1. **Outer Loop**:
+   (C++)
+   for (int num : nums) {  // num = 2
+   ```
+2. **Inner Loop Setup**:
+   (C++)
+   int n = subs.size();  // n = 2
+   for (int i = 0; i < n; i++) {
+   ```
+3. **Inner Loop Execution**:
+   - **i = 0**:
+     - `subs.push_back(subs[i]);  // subs.push_back(subs[0]) => subs.push_back([])`
+     - `subs` becomes `[[], [1], []]`.
+     - `subs.back().push_back(num);  // subs.back().push_back(2)`
+     - `subs` becomes `[[], [1], [2]]`.
+   - **i = 1**:
+     - `subs.push_back(subs[i]);  // subs.push_back(subs[1]) => subs.push_back([1])`
+     - `subs` becomes `[[], [1], [2], [1]]`.
+     - `subs.back().push_back(num);  // subs.back().push_back(2)`
+     - `subs` becomes `[[], [1], [2], [1, 2]]`.
+
+Final State
+
+- The final value of `subs` is `[[], [1], [2], [1, 2]]`.
+
+Summary of Steps
+
+1. Start with `subs = [[]]`.
+2. Process `1`:
+   - Add `1` to each subset: `[[], [1]]`.
+3. Process `2`:
+   - Add `2` to each subset: `[[], [1], [2], [1, 2]]`.
+
+This generates all possible subsets of the input list `[1, 2]`.
