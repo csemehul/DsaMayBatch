@@ -1,0 +1,69 @@
+Dry run of the optimized solution with a short and simple example, such as the string `"aab"`.
+
+### Initial Setup
+
+- Input string: `s = "aab"`
+- Length of string: `n = 3`
+- Create a `dp` table of size `3x3` initialized to `false`.
+
+### Precompute Palindrome Table
+
+1. **Step 1** (`i = 2`):
+   - `j = 2`: `s[2] == s[2]` (`'b' == 'b'`) → `dp[2][2] = true`
+   
+   |    | 0  | 1  | 2  |
+   |----|----|----|----|
+   | 0  |    |    |    |
+   | 1  |    |    |    |
+   | 2  |    |    | T  |
+
+2. **Step 2** (`i = 1`):
+   - `j = 1`: `s[1] == s[1]` (`'a' == 'a'`) → `dp[1][1] = true`
+   - `j = 2`: `s[1] != s[2]` (`'a' != 'b'`) → `dp[1][2] = false`
+
+   |    | 0  | 1  | 2  |
+   |----|----|----|----|
+   | 0  |    |    |    |
+   | 1  |    | T  | F  |
+   | 2  |    |    | T  |
+
+3. **Step 3** (`i = 0`):
+   - `j = 0`: `s[0] == s[0]` (`'a' == 'a'`) → `dp[0][0] = true`
+   - `j = 1`: `s[0] == s[1]` (`'a' == 'a'`) → `dp[0][1] = true`
+   - `j = 2`: `s[0] != s[2]` (`'a' != 'b'`) → `dp[0][2] = false`
+
+   |    | 0  | 1  | 2  |
+   |----|----|----|----|
+   | 0  | T  | T  | F  |
+   | 1  |    | T  | F  |
+   | 2  |    |    | T  |
+
+### Backtracking to Find Partitions
+
+1. **Start from index `0`**:
+   - `end = 0`: `dp[0][0]` is `true`, so `"a"` is a palindrome. Add `"a"` to the current partition: `["a"]`.
+     - **Recursive call from index `1`**:
+       - `end = 1`: `dp[1][1]` is `true`, so `"a"` is a palindrome. Add `"a"` to the current partition: `["a", "a"]`.
+         - **Recursive call from index `2`**:
+           - `end = 2`: `dp[2][2]` is `true`, so `"b"` is a palindrome. Add `"b"` to the current partition: `["a", "a", "b"]`.
+             - **Recursive call from index `3`**: Reached the end of the string, so add `["a", "a", "b"]` to the result.
+           - Backtrack: Remove `"b"`, current partition is `["a", "a"]`.
+       - Backtrack: Remove `"a"`, current partition is `["a"]`.
+       - `end = 2`: `dp[1][2]` is `false`, so skip this.
+     - Backtrack: Remove `"a"`, current partition is `[]`.
+   - `end = 1`: `dp[0][1]` is `true`, so `"aa"` is a palindrome. Add `"aa"` to the current partition: `["aa"]`.
+     - **Recursive call from index `2`**:
+       - `end = 2`: `dp[2][2]` is `true`, so `"b"` is a palindrome. Add `"b"` to the current partition: `["aa", "b"]`.
+         - **Recursive call from index `3`**: Reached the end of the string, so add `["aa", "b"]` to the result.
+       - Backtrack: Remove `"b"`, current partition is `["aa"]`.
+     - Backtrack: Remove `"aa"`, current partition is `[]`.
+   - `end = 2`: `dp[0][2]` is `false`, so skip this.
+
+### Final Result
+
+The result contains all possible palindrome partitions:
+```cpp
+[["a", "a", "b"], ["aa", "b"]]
+```
+
+This process ensures that we efficiently find all partitions using memoization and backtracking.
