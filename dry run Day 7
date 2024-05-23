@@ -1,0 +1,66 @@
+dry run of the function `beautifulSubsets` using a simple example to understand how it works step-by-step.
+
+### Example Input
+```cpp
+vector<int> nums = {1, 2};
+int k = 1;
+```
+
+### Dry Run
+
+1. **Initial Setup**:
+   - `ans = 0`
+   - `mp = {}` (an empty map)
+
+2. **First Call to `dfs(nums, 0, k, mp, ans)`**:
+   - `idx = 0`, `nums[0] = 1`
+
+3. **Including `nums[0]` (1) in the subset**:
+   - Check: `mp[1 - 1] == 0` and `mp[1 + 1] == 0` (both true)
+   - `mp = {1: 1}` (include 1 in the map)
+   - Recursive call: `dfs(nums, 1, k, mp, ans)`
+     - `idx = 1`, `nums[1] = 2`
+   
+4. **Including `nums[1]` (2) in the subset**:
+   - Check: `mp[2 - 1] == 0` (false, since `mp[1] == 1`) -> cannot include 2
+   - Recursive call: `dfs(nums, 2, k, mp, ans)`
+     - `idx = 2` (end of list)
+     - Increment `ans` to 1 (valid subset: {1})
+
+5. **Excluding `nums[1]` (2)**:
+   - `mp = {1: 1}` (still keeping 1 in the subset)
+   - Recursive call: `dfs(nums, 2, k, mp, ans)`
+     - `idx = 2` (end of list)
+     - Increment `ans` to 2 (valid subset: {1})
+   - Backtrack: `mp = {}` (remove 1 from the map)
+
+6. **Excluding `nums[0]` (1)**:
+   - `mp = {}` (no elements in the subset)
+   - Recursive call: `dfs(nums, 1, k, mp, ans)`
+     - `idx = 1`, `nums[1] = 2`
+   
+7. **Including `nums[1]` (2) in the subset**:
+   - Check: `mp[2 - 1] == 0` and `mp[2 + 1] == 0` (both true)
+   - `mp = {2: 1}` (include 2 in the map)
+   - Recursive call: `dfs(nums, 2, k, mp, ans)`
+     - `idx = 2` (end of list)
+     - Increment `ans` to 3 (valid subset: {2})
+   - Backtrack: `mp = {}` (remove 2 from the map)
+
+8. **Excluding `nums[1]` (2)**:
+   - `mp = {}` (no elements in the subset)
+   - Recursive call: `dfs(nums, 2, k, mp, ans)`
+     - `idx = 2` (end of list)
+     - Increment `ans` to 4 (valid subset: {})
+
+9. **Final Result**:
+   - `ans = 4`
+   - Return `ans - 1` to exclude the empty subset: `4 - 1 = 3`
+
+### Result
+The number of beautiful subsets is `3`:
+- {1}
+- {2}
+- {1, 2}
+
+This dry run demonstrates how the recursive DFS function explores all possible subsets and counts those that meet the given conditions.
