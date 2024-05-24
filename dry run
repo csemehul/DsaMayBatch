@@ -1,0 +1,54 @@
+dry run of the code with a simple example. 
+
+ Example:
+- Words: `["dog", "cat", "dad", "good"]`
+- Letters: `['a', 'a', 'c', 'd', 'd', 'g', 'o', 'o']`
+- Scores: `a = 1, b = 2, c = 3, d = 4, e = 5, f = 6, g = 7, h = 8, i = 9, j = 10, k = 11, l = 12, m = 13, n = 14, o = 15, p = 16, q = 17, r = 18, s = 19, t = 20, u = 21, v = 22, w = 23, x = 24, y = 25, z = 26`
+- Simplified to: `a=1, c=3, d=4, g=7, o=15, t=20`
+
+ Initial Setup:
+- Initialize the DP table `dp` with -1.
+- Create a frequency map `m` for letters:
+  ```
+  m = { 'a': 2, 'c': 1, 'd': 2, 'g': 1, 'o': 2 }
+  ```
+
+ Recursive Call:
+Start with `curr = 0` and `mask = 0`.
+
+1. **First Call `sol(words, m, score, 0, 0)`**:
+   - `curr = 0`, `mask = 0`
+   - Try "dog":
+     - `canMake("dog", m)` returns true.
+     - Calculate score of "dog": `d = 4, o = 15, g = 7` → Total score = 26
+     - Update map `m`: `m = { 'a': 2, 'c': 1, 'd': 1, 'g': 0, 'o': 1 }`
+     - Recur with `sol(words, m, score, 1, 1)`
+
+2. **Second Call `sol(words, m, score, 1, 1)`**:
+   - `curr = 1`, `mask = 1`
+   - Try "cat":
+     - `canMake("cat", m)` returns true.
+     - Calculate score of "cat": `c = 3, a = 1, t = 20` → Total score = 24
+     - Update map `m`: `m = { 'a': 1, 'c': 0, 'd': 1, 'g': 0, 'o': 1 }`
+     - Recur with `sol(words, m, score, 2, 3)`
+
+3. **Third Call `sol(words, m, score, 2, 3)`**:
+   - `curr = 2`, `mask = 3`
+   - Try "dad":
+     - `canMake("dad", m)` returns false (not enough 'd's).
+   - Try "good":
+     - `canMake("good", m)` returns false (not enough 'o's).
+
+4. **Return to Second Call**:
+   - "cat" with score 24 + `sol(words, m, score, 2, 3)` returns 0 → Total score = 24
+   - Undo "cat": `m = { 'a': 2, 'c': 1, 'd': 1, 'g': 0, 'o': 1 }`
+   - Maximum score so far: 26
+
+5. **First Call Continued**:
+   - Maximum score with "dog" = 26 + `sol(words, m, score, 1, 1)` returns 24 → Total score = 50
+   - Undo "dog": `m = { 'a': 2, 'c': 1, 'd': 2, 'g': 1, 'o': 2 }`
+
+### Final Result:
+- After all recursive calls and backtracking, the highest possible score found is 50.
+
+This dry run shows how the recursive function explores different combinations of words and uses memoization to avoid redundant calculations.
