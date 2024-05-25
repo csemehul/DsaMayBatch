@@ -1,0 +1,67 @@
+Assume the input string `s` is `"catsanddog"` and the dictionary `wordDict` contains `["cat", "cats", "and", "sand", "dog"]`.
+
+ Initial Setup
+- `s = "catsanddog"`
+- `wordDict = ["cat", "cats", "and", "sand", "dog"]`
+- Convert `wordDict` to a set: `st = {"cat", "cats", "and", "sand", "dog"}`
+
+ Dry Run
+
+ Call `wordBreak`
+1. Initialize `res` and `temp` as empty vectors.
+2. Call `solve(s, 0, res, st, temp)`.
+
+ First Call `solve("catsanddog", 0, res, st, temp)`
+- **Loop i from 0 to 9**:
+  - i = 0: `word = "c"` (not in `st`)
+  - i = 1: `word = "ca"` (not in `st`)
+  - i = 2: `word = "cat"` (in `st`)
+    - `temp = ["cat"]`
+    - Call `solve("catsanddog", 3, res, st, temp)`
+
+ Second Call `solve("catsanddog", 3, res, st, temp)`
+- **Loop i from 3 to 9**:
+  - i = 3: `word = "s"` (not in `st`)
+  - i = 4: `word = "sa"` (not in `st`)
+  - i = 5: `word = "san"` (not in `st`)
+  - i = 6: `word = "sand"` (in `st`)
+    - `temp = ["cat", "sand"]`
+    - Call `solve("catsanddog", 7, res, st, temp)`
+
+ Third Call `solve("catsanddog", 7, res, st, temp)`
+- **Loop i from 7 to 9**:
+  - i = 7: `word = "d"` (not in `st`)
+  - i = 8: `word = "do"` (not in `st`)
+  - i = 9: `word = "dog"` (in `st`)
+    - `temp = ["cat", "sand", "dog"]`
+    - Call `solve("catsanddog", 10, res, st, temp)`
+
+ Fourth Call `solve("catsanddog", 10, res, st, temp)`
+- `start = 10` (end of string)
+  - Create string from `temp`: `"cat sand dog"`
+  - `res = ["cat sand dog"]`
+  - Backtrack: `temp = ["cat", "sand"]`
+
+ Backtrack to Second Call
+- Backtrack: `temp = ["cat"]`
+- Continue loop i from 7 to 9 (no valid words found)
+
+ Backtrack to First Call
+- Backtrack: `temp = []`
+- Continue loop i from 2 to 9
+  - i = 3: `word = "cats"` (in `st`)
+    - `temp = ["cats"]`
+    - Call `solve("catsanddog", 4, res, st, temp)`
+
+ New Branch from First Call
+
+- Repeat similar steps for `"cats and dog"`
+  - `temp = ["cats", "and", "dog"]`
+  - `res = ["cat sand dog", "cats and dog"]`
+
+### Result
+- `res = ["cat sand dog", "cats and dog"]`
+
+ Summary
+- The function explores different splits of the input string using recursion.
+- It backtracks to explore all possible combinations, adding valid sentences to the result list.
