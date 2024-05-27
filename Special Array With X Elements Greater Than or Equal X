@@ -1,14 +1,30 @@
 class Solution {
 public:
     int specialArray(vector<int>& nums) {
-        int arr[1001]={0};
-        for(int num: nums) arr[num]++;
-        int total=nums.size();
-        for(int i=0;i<1001;i++){
-            if(i==total) 
-                return i;
-            total-=arr[i];
+        // Step 1: Determine the maximum value in nums to avoid unnecessary space usage
+        int maxNum = *max_element(nums.begin(), nums.end());
+        vector<int> count(maxNum + 1, 0);
+        
+        // Step 2: Count the occurrences of each number in nums
+        for (int num : nums) {
+            count[num]++;
         }
+        
+        // Step 3: Calculate the number of elements greater than or equal to each possible value
+        int total = nums.size();
+        for (int i = 0; i <= maxNum; i++) {
+            if (i == total) {
+                return i;
+            }
+            total -= count[i];
+        }
+        
+        // Step 4: Check for the case where x could be greater than maxNum
+        if (nums.size() <= maxNum) {
+            return nums.size();
+        }
+        
+        // If no special value is found, return -1
         return -1;
     }
 };
