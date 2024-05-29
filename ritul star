@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int numSteps(string s) {
+        int carry = 0; // Initialize carry to 0
+        int steps = 0; // Initialize step counter to 0
+        
+        // Iterate from the last character to the second character
+        for(int i = s.length() - 1; i > 0; i--) {
+            // If current bit plus carry is odd
+            if((s[i] - '0') + carry == 1) {
+                steps += 2; // One step to add 1 (to make even), one to divide by 2
+                carry = 1;  // Set carry to 1 because of the addition
+            } else {
+                steps++; // If even, only one step to divide by 2
+            }
+        }
+        
+        // Return total steps plus carry (carry could be 1 if the final operation was addition)
+        return steps + carry;
+    }
+};
