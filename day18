@@ -1,11 +1,17 @@
 class Solution {
 public:
     string reverseString(string s) {
+        // Initialize two pointers, i starting from the beginning of the string
+        // and j starting from the end of the string.
         int i = 0, j = s.size() - 1;
+
+        // Continue swapping characters until the two pointers meet in the middle.
         while(i < j){
+            // Swap the characters at positions i and j.
             swap(s[i++], s[j--]); 
         }
         
+        // Return the reversed string.
         return s;
     }
 };
