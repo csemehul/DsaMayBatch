@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& A, int K) {
+        int pref = 0; // prefix sum
+        vector<int> cPref(K); // sum will not exceed K as we are taking modulo at every step
+        cPref[pref]++; // adding 0 as prefix sum, base case
+        
+        int answer = 0; // count of number of subarrays whose sum is divisible by K
+        
+        for(int i = 0; i < A.size(); i++) {
+            pref = (pref + A[i]) % K; // update prefix sum modulo K
+            
+            if(pref < 0) pref += K; // adjust for negative mod value
+            
+            answer += cPref[pref]; // count subarrays ending at current index with sum divisible by K
+            cPref[pref]++; // increment count of current prefix sum modulo K
+        }
+        
+        return answer; // return the total count of valid subarrays
+    }
+};
