@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int heightChecker(vector<int>& heights) {
+        int mismatch = 0; // Count the number of mismatches
+        vector<int> count(101, 0); // Store the count of heights
+
+        // Fill the count vector with the frequency of each height
+        for(int i = 0; i < heights.size(); i++) {
+            count[heights[i]]++;
+        }
+
+        int i = 1, j = 0; 
+        // Compare the original heights with the expected sorted heights
+        while(i < 101){
+            if(count[i] == 0){
+                // Move to the next height if the current height count is 0
+                i++;
+            } else {
+                // Compare the current height with the height at index j
+                if(i != heights[j]) {
+                    mismatch++;
+                }
+                j++; 
+                count[i]--; // Decrement the count for the current height
+            }
+        }
+
+        return mismatch; // Return the number of mismatches
+    }
+};
