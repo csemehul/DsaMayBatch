@@ -1,0 +1,32 @@
+dry run of the provided solution with an example.
+
+ Example:
+- `seats = [3, 1, 5, 4]`
+- `students = [2, 7, 5, 1]`
+
+ Step-by-Step Dry Run:
+
+1. Initial Arrays:
+   - `seats = [3, 1, 5, 4]`
+   - `students = [2, 7, 5, 1]`
+
+2. Sorting:
+   - Sort `seats`: `seats = [1, 3, 4, 5]`
+   - Sort `students`: `students = [1, 2, 5, 7]`
+
+3. Calculate Moves:
+   - Initialize `moves = 0`
+   - Loop through the arrays and calculate the absolute differences:
+     - For `i = 0`: `moves += abs(1 - 1) = 0` → `moves = 0`
+     - For `i = 1`: `moves += abs(3 - 2) = 1` → `moves = 1`
+     - For `i = 2`: `moves += abs(4 - 5) = 1` → `moves = 2`
+     - For `i = 3`: `moves += abs(5 - 7) = 2` → `moves = 4`
+
+4. Return Result:
+   - The total number of moves is `4`.
+
+ Summary:
+- After sorting: `seats = [1, 3, 4, 5]` and `students = [1, 2, 5, 7]`.
+- Moves calculation: `|1-1| + |3-2| + |4-5| + |5-7| = 0 + 1 + 1 + 2 = 4`.
+
+Thus, the function correctly returns `4` as the minimum number of moves required to seat all students.
