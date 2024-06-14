@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int minIncrementForUnique(std::vector<int>& nums) {
+        // Sort the vector first
+        std::sort(nums.begin(), nums.end());
+        
+        int numTracker = 0; // Tracks the next unique number that should be set.
+        int minIncrement = 0; // Counts the total increments required.
+        
+        for (int num : nums) {
+            // Ensure numTracker is at least as large as num
+            numTracker = std::max(numTracker, num);
+            // Increment count is the difference between numTracker and the current number
+            minIncrement += numTracker - num;
+            // Move to the next potential unique number
+            numTracker += 1;
+        }
+        
+        return minIncrement;
+    }
+};
