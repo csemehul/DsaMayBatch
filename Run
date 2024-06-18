@@ -1,0 +1,45 @@
+ Example Input:
+- `difficulty = [2, 4, 6, 8]`
+- `profit = [10, 20, 30, 40]`
+- `worker = [4, 5, 6, 7]`
+
+### Initialization:
+- Create pairs for jobs: `jobs = [(2, 10), (4, 20), (6, 30), (8, 40)]`
+- Sort jobs by difficulty: `jobs = [(2, 10), (4, 20), (6, 30), (8, 40)]` (already sorted in this case)
+- Sort workers: `worker = [4, 5, 6, 7]` (already sorted in this case)
+
+### Variables:
+- `maxProfit = 0`
+- `tempProfit = 0`
+- `j = 0`
+
+### Iteration through workers:
+
+1. **Worker 4:**
+   - While `j < 4` and `jobs[j].first <= 4`:
+     - `jobs[0].first (2) <= 4`: `tempProfit = max(0, 10) = 10`; `j++`
+     - `jobs[1].first (4) <= 4`: `tempProfit = max(10, 20) = 20`; `j++`
+   - Add `tempProfit (20)` to `maxProfit`: `maxProfit = 0 + 20 = 20`
+
+2. **Worker 5:**
+   - While `j < 4` and `jobs[j].first <= 5`:
+     - No more jobs with difficulty `<= 5` as `jobs[2].first (6) > 5`
+   - Add `tempProfit (20)` to `maxProfit`: `maxProfit = 20 + 20 = 40`
+
+3. **Worker 6:**
+   - While `j < 4` and `jobs[j].first <= 6`:
+     - `jobs[2].first (6) <= 6`: `tempProfit = max(20, 30) = 30`; `j++`
+   - Add `tempProfit (30)` to `maxProfit`: `maxProfit = 40 + 30 = 70`
+
+4. **Worker 7:**
+   - While `j < 4` and `jobs[j].first <= 7`:
+     - No more jobs with difficulty `<= 7` as `jobs[3].first (8) > 7`
+   - Add `tempProfit (30)` to `maxProfit`: `maxProfit = 70 + 30 = 100`
+
+### Final Output:
+- `maxProfit = 100`
+
+### Summary:
+- Workers with abilities 4 and 5 can do the job with a maximum profit of 20.
+- Workers with abilities 6 and 7 can do the job with a maximum profit of 30.
+- The total maximum profit is `100`.
