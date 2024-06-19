@@ -1,0 +1,52 @@
+
+We need to make 3 bouquets (m) with 1 flower each (k).
+
+ Steps
+
+1. **Initial Checks**:
+   - `m * k = 3 * 1 = 3`
+   - `bloom_days.size() = 5`
+   - Since `3 <= 5`, we can proceed.
+
+2. **Binary Search Setup**:
+   - `left = 1` (minimum bloom day)
+   - `right = 10` (maximum bloom day)
+   - `optimal_day = right = 10`
+
+3. **First Iteration**:
+   - `mid = (1 + 10) / 2 = 5`
+   - Check if `day = 5` is valid:
+     - Flowers blooming by day 5: {1, 3, 2} → 3 flowers
+     - Bouquets made: 3 (each flower individually)
+     - `is_valid(5)` returns `true`
+   - Update: `optimal_day = 5`, `right = 4`
+
+4. **Second Iteration**:
+   - `mid = (1 + 4) / 2 = 2`
+   - Check if `day = 2` is valid:
+     - Flowers blooming by day 2: {1, 2} → 2 flowers
+     - Bouquets made: 2
+     - `is_valid(2)` returns `false`
+   - Update: `left = 3`
+
+5. **Third Iteration**:
+   - `mid = (3 + 4) / 2 = 3`
+   - Check if `day = 3` is valid:
+     - Flowers blooming by day 3: {1, 3, 2} → 3 flowers
+     - Bouquets made: 3
+     - `is_valid(3)` returns `true`
+   - Update: `optimal_day = 3`, `right = 2`
+
+6. **End of Binary Search**:
+   - `left = 3`, `right = 2` (stop as `left > right`)
+
+### Result
+The minimum day to make 3 bouquets with 1 flower each is `3`.
+
+### Code Summary
+The binary search narrows down the optimal day by:
+- Checking mid-point day feasibility with `is_valid`
+- Adjusting the search range based on whether the required number of bouquets can be made by the mid-point day
+- Finally returning the smallest valid day found.
+
+This method ensures an efficient search for the minimum day to meet the bouquet requirement.
