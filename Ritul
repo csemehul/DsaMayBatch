@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int maxSatisfied(std::vector<int>& customers, std::vector<int>& grumpy, int minutes) {
+        int n = customers.size();
+        int satisfiedCustomers = 0;
+        int maxUnsatisfiedCustomers = 0;
+        int currentUnsatisfiedCustomers = 0;
+
+        // Calculate initial satisfied customers
+        for (int i = 0; i < n; i++) {
+            if (grumpy[i] == 0) {
+                satisfiedCustomers += customers[i];
+            }
+        }
+
+        // Calculate the initial window of unsatisfied customers
+        for (int i = 0; i < minutes; i++) {
+            if (grumpy[i] == 1) {
+                currentUnsatisfiedCustomers += customers[i];
+            }
+        }
+        maxUnsatisfiedCustomers = currentUnsatisfiedCustomers;
+
+        // Sliding window to find the maximum unsatisfied customers we can satisfy
+        for (int i = minutes; i < n; i++) {
+            if (grumpy[i - minutes] == 1) {
+                currentUnsatisfiedCustomers -= customers[i - minutes];
+            }
+            if (grumpy[i] == 1) {
+                currentUnsatisfiedCustomers += customers[i];
+            }
+            maxUnsatisfiedCustomers = std::max(maxUnsatisfiedCustomers, currentUnsatisfiedCustomers);
+        }
+
+        return satisfiedCustomers + maxUnsatisfiedCustomers;
+    }
+};
