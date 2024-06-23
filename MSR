@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums, int limit) {
+        multiset<int> m;  // Multiset to maintain the elements in the current window
+        int j = 0;        // Start index of the window
+        int ans = 1;      // Initialize answer with at least one element in the subarray
+        
+        for (int i = 0; i < nums.size(); i++) {
+            m.insert(nums[i]);  // Insert current element into the multiset
+
+            // Shrink the window until the difference between max and min is within the limit
+            while(!m.empty() && *m.rbegin() - *m.begin() > limit) {
+                m.erase(m.find(nums[j++]));  // Remove the leftmost element and increment start index
+            }
+            
+            // Update the answer with the maximum length found so far
+            ans = max(ans, i - j + 1);
+        }
+        
+        return ans;  // Return the length of the longest valid subarray
+    }
+};
